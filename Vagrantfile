@@ -65,6 +65,9 @@ Vagrant.configure("2") do |config|
 
       worker.vm.provision "shell", inline: "sudo sed -i 's/127\.0\.1\.1/192\.168\.73\.20#{i}/g' /etc/hosts"
 
+      worker.vm.provision "shell", inline: "sudo sed -i 's/192\.168\.73\.100/192\.168\.73\.20#{i}/g' /etc/hosts"
+
+
       worker.vm.provision "shell", path: "worker.sh",
         env: { "MASTER_IP" => MASTER_IP, "TOKEN" => TOKEN }
     end
