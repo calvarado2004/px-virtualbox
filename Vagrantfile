@@ -27,7 +27,10 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "master" do |master|
     master.vm.hostname = "master"
-    master.vm.network :private_network, ip: MASTER_IP
+
+    master.vm.network "private_network", ip: MASTER_IP,
+      virtualbox__intnet: true
+
     master.vm.provision "shell", path: "master.sh",
       env: { "MASTER_IP" => MASTER_IP, "TOKEN" => TOKEN }
 
@@ -51,7 +54,8 @@ Vagrant.configure("2") do |config|
   (0..NUM_WORKERS-1).each do |i|
     config.vm.define "worker#{i}" do |worker|
       worker.vm.hostname = "worker#{i}"
-      worker.vm.network :private_network, ip: "#{WORKER_IP_BASE}" + i.to_s.rjust(2, '0')
+      worker.vm.network "private_network", ip: "#{WORKER_IP_BASE}" + i.to_s.rjust(2, '0'),
+        virtualbox__intnet: true
       (1..NUM_DISKS).each do |j|
         worker.vm.disk :disk, size: "#{DISK_GBS}GB", name: "worker#{i}-disk#{j}"
       end
