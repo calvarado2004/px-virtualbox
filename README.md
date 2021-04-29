@@ -14,9 +14,21 @@ Install Vagrant and Virtualbox on Linux or macOS hosts\
 ```
 $ ./CreateCluster.sh
 $ vagrant ssh master -c "sudo kubectl --kubeconfig=/etc/kubernetes/admin.conf get nodes"
+NAME      STATUS   ROLES                  AGE     VERSION
+master    Ready    control-plane,master   8m29s   v1.21.0
+worker0   Ready    <none>                 6m10s   v1.21.0
+worker1   Ready    <none>                 3m27s   v1.21.0
+worker2   Ready    <none>                 65s     v1.21.0
 
 ```
 
+#Check the Portworx Cluster
+
+```
+$ vagrant ssh master -c "sudo cat /etc/kubernetes/admin.conf" > ${HOME}/.kube/config 
+$ POD=$(kubectl get pods -o wide -n kube-system -l name=portworx | tail -1 | awk '{print $1}')
+$ kubectl exec -it pod/${POD} -n kube-system -- /opt/pwx/bin/pxctl status
+```
 # About this project
 
 This is a derivative project from:
