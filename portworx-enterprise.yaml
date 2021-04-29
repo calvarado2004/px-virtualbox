@@ -17,6 +17,8 @@ spec:
     - /dev/sdc
     journalDevice: auto
     kvdbDevice: /dev/sdd
+  network:
+    dataInterface: eth1
   secretsProvider: k8s
   stork:
     enabled: true
