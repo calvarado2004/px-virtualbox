@@ -34,6 +34,8 @@ Vagrant.configure("2") do |config|
     master.vm.provision "shell", path: "master.sh",
       env: { "MASTER_IP" => MASTER_IP, "TOKEN" => TOKEN }
 
+    master.vm.provision :shell, inline: "sed 's/127\.0\.0\.1.*k8s.*/192\.168\.73\.100 k8s/' -i /etc/hosts"
+
     master.vm.provision :file do |file|
       file.source = "local-storage/storageclass.yaml"
       file.destination = "/tmp/local-storage-storageclass.yaml"
@@ -54,11 +56,15 @@ Vagrant.configure("2") do |config|
   (0..NUM_WORKERS-1).each do |i|
     config.vm.define "worker#{i}" do |worker|
       worker.vm.hostname = "worker#{i}"
+
       worker.vm.network "private_network", ip: "#{WORKER_IP_BASE}" + i.to_s.rjust(2, '0'),
         virtualbox__intnet: true
       (1..NUM_DISKS).each do |j|
         worker.vm.disk :disk, size: "#{DISK_GBS}GB", name: "worker#{i}-disk#{j}"
       end
+
+      worker.vm.provision :shell, inline: "sed 's/127\.0\.0\.1.*k8s.*/172\.42\.42\.20#{i} k8s#{i}/' -i /etc/hosts"
+
       worker.vm.provision "shell", path: "worker.sh",
         env: { "MASTER_IP" => MASTER_IP, "TOKEN" => TOKEN }
     end
