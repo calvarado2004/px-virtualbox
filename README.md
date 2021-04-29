@@ -25,8 +25,20 @@ worker2   Ready    <none>                 65s     v1.21.0
 #Check the Portworx Cluster
 
 ```
-$ vagrant ssh master -c "sudo cat /etc/kubernetes/admin.conf" > ${HOME}/.kube/config 
+$ vagrant ssh master -c "sudo cat /etc/kubernetes/admin.conf" > ${HOME}/.kube/config
+$ kubectl get nodes
+NAME                  STATUS   ROLES                  AGE     VERSION
+master.example.com    Ready    control-plane,master   15m     v1.21.0
+worker0.example.com   Ready    <none>                 13m     v1.21.0
+worker1.example.com   Ready    <none>                 11m     v1.21.0
+worker2.example.com   Ready    <none>                 8m58s   v1.21.0
+```
+Check the PX pods status:
+
+```
 $ POD=$(kubectl get pods -o wide -n kube-system -l name=portworx | tail -1 | awk '{print $1}')
+$ kubectl logs ${POD} -n kube-system -f
+[ ctrl+c ]
 $ kubectl exec -it pod/${POD} -n kube-system -- /opt/pwx/bin/pxctl status
 ```
 # About this project
