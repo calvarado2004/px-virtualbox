@@ -7,7 +7,7 @@ Install Vagrant and Virtualbox on Linux or macOS hosts\
 \
 -32GB RAM recommended.\
 -12CPUs recommended.\
--100GB of free storage Flash storage recommended.\
+-100GB of free storage Flash storage recommended.
 
 # Create the cluster
 
