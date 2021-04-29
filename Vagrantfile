@@ -26,10 +26,9 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "local-storage/create-volumes.sh"
 
   config.vm.define "master" do |master|
-    master.vm.hostname = "master"
+    master.vm.hostname = "master.example.com"
 
-    master.vm.network "private_network", ip: MASTER_IP,
-      virtualbox__intnet: true
+    master.vm.network "private_network", ip: MASTER_IP
 
     master.vm.provision "shell", inline: "sudo sed -i 's/127\.0\.1\.1/192\.168\.73\.100/g' /etc/hosts"
 
@@ -55,15 +54,13 @@ Vagrant.configure("2") do |config|
 
   (0..NUM_WORKERS-1).each do |i|
     config.vm.define "worker#{i}" do |worker|
-      worker.vm.hostname = "worker#{i}"
+      worker.vm.hostname = "worker#{i}.example.com"
 
-      worker.vm.network "private_network", ip: "#{WORKER_IP_BASE}" + i.to_s.rjust(2, '0'),
-        virtualbox__intnet: true
+      worker.vm.network "private_network", ip: "#{WORKER_IP_BASE}" + i.to_s.rjust(2, '0')
       (1..NUM_DISKS).each do |j|
         worker.vm.disk :disk, size: "#{DISK_GBS}GB", name: "worker#{i}-disk#{j}"
       end
 
-      worker.vm.provision "shell", inline: "sudo sed -i 's/127\.0\.1\.1/192\.168\.73\.20#{i}/g' /etc/hosts"
 
       worker.vm.provision "shell", inline: "sudo sed -i 's/192\.168\.73\.100/192\.168\.73\.20#{i}/g' /etc/hosts"
 

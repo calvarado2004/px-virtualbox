@@ -2,8 +2,14 @@
 set -e
 
 
-sudo sed 's/127\.0\.1\.1/192\.168\.73\.100/' -i /etc/hosts
-
+sudo cat << EOF > /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.73.100 master.example.com
+192.168.73.200 worker0.example.com
+192.168.73.201 worker1.example.com
+192.168.73.202 worker2.example.com
+EOF
 
 cat << EOF > /etc/yum.repos.d/docker-ce.repo
 [docker-ce-stable]
