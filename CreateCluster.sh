@@ -13,6 +13,7 @@ sleep 60s
 
 echo Continue...
 
+vagrant ssh master -c "sudo kubectl --kubeconfig=/etc/kubernetes/admin.conf label nodes worker0.example.com worker1.example.com worker2.example.com px/metadata-node=true"
 vagrant ssh master -c "sudo kubectl --kubeconfig=/etc/kubernetes/admin.conf apply -f /tmp/portworx-enterprise.yaml"
 
 vagrant ssh master -c "sudo kubectl --kubeconfig=/etc/kubernetes/admin.conf get nodes"
