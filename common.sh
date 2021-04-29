@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+
+sudo sed 's/127\.0\.1\.1/192\.168\.73\.100/' -i /etc/hosts
+
+
 cat << EOF > /etc/yum.repos.d/docker-ce.repo
 [docker-ce-stable]
 name=Docker CE Stable - x86_64

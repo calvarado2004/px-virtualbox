@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
     master.vm.network "private_network", ip: MASTER_IP,
       virtualbox__intnet: true
 
-    master.vm.provision :shell, inline: "sudo sed 's/127\.0\.1\.1/192\.168\.73\.100/' -i /etc/hosts"
+    master.vm.provision "shell", inline: "sudo sed -i 's/127\.0\.1\.1/192\.168\.73\.100/g' /etc/hosts"
 
     master.vm.provision "shell", path: "master.sh",
       env: { "MASTER_IP" => MASTER_IP, "TOKEN" => TOKEN }
@@ -63,7 +63,7 @@ Vagrant.configure("2") do |config|
         worker.vm.disk :disk, size: "#{DISK_GBS}GB", name: "worker#{i}-disk#{j}"
       end
 
-      worker.vm.provision :shell, inline: "sudo sed 's/127\.0\.1\.1 /192\.168\.73\.20#{i} /' -i /etc/hosts"
+      worker.vm.provision "shell", inline: "sudo sed -i 's/127\.0\.1\.1/192\.168\.73\.20#{i}/g' /etc/hosts"
 
       worker.vm.provision "shell", path: "worker.sh",
         env: { "MASTER_IP" => MASTER_IP, "TOKEN" => TOKEN }
