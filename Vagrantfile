@@ -30,6 +30,10 @@ Vagrant.configure("2") do |config|
 
     master.vm.network "private_network", ip: MASTER_IP
 
+    master.vm.provision :file do |file|
+      file.source = "kube-flannel.yml"
+      file.destination = "/tmp/kube-flannel.yml"
+    end
 
     master.vm.provision "shell", path: "master.sh",
       env: { "MASTER_IP" => MASTER_IP, "TOKEN" => TOKEN }
@@ -49,10 +53,6 @@ Vagrant.configure("2") do |config|
       file.destination = "/tmp/portworx-enterprise.yaml"
     end
 
-    master.vm.provision :file do |file|
-      file.source = "kube-flannel.yml"
-      file.destination = "/tmp/kube-flannel.yml"
-    end
 
 
     master.vm.provision "shell", path: "portworx.sh"
