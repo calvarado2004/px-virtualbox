@@ -14,7 +14,7 @@ EOF
 cat << EOF > /etc/yum.repos.d/docker-ce.repo
 [docker-ce-stable]
 name=Docker CE Stable - x86_64
-baseurl=https://download.docker.com/linux/centos/7/x86_64/stable
+baseurl=https://download.docker.com/linux/centos/8/x86_64/stable
 enabled=1
 gpgcheck=1
 gpgkey=https://download.docker.com/linux/centos/gpg
@@ -53,9 +53,13 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
 
+yum -y update
 yum install -y device-mapper-persistent-data lvm2 \
-    kubelet kubeadm kubectl docker-ce-18.06.2.ce \
+    kubeadm kubelet kubectl docker-ce-20.10.7-3.el8.x86_64 nfs-utils kernel-devel cloud-utils-growpart \
     --disableexcludes=kubernetes,docker-ce-stable
+
+growpart /dev/sda 1
+xfs_growfs /dev/sda1
 
 systemctl daemon-reload
 systemctl restart docker
@@ -70,3 +74,4 @@ sysctl --system
 
 swapoff -a
 sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+

@@ -1,9 +1,9 @@
 # number of worker nodes
 NUM_WORKERS = 3
 # number of extra disks per worker
-NUM_DISKS = 3
+NUM_DISKS = 1
 # size of each disk in gigabytes
-DISK_GBS = 30
+DISK_GBS = 130
 
 ENV["VAGRANT_EXPERIMENTAL"] = "disks"
 
@@ -12,7 +12,7 @@ WORKER_IP_BASE = "192.168.73.2" # 200, 201, ...
 TOKEN = "yi6muo.4ytkfl3l6vl8zfpk"
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "centos/7"
+  config.vm.box = "centos/8"
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
   config.vm.provider "virtualbox" do |v|
@@ -24,7 +24,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", path: "common.sh"
   config.vm.provision "shell", path: "local-storage/create-volumes.sh"
-
+  config.vm.disk :disk, size: "25GB", primary: true
+  
   config.vm.define "master" do |master|
     master.vm.hostname = "master.example.com"
 
@@ -65,8 +66,8 @@ Vagrant.configure("2") do |config|
       worker.vm.network "private_network", ip: "#{WORKER_IP_BASE}" + i.to_s.rjust(2, '0')
       (1..NUM_DISKS).each do |j|
         worker.vm.disk :disk, size: "#{DISK_GBS}GB", name: "worker#{i}-disk#{j}"
+        worker.vm.disk :disk, size: "15GB", name: "worker#{i}-disk-kvdb"
       end
-
 
       worker.vm.provision "shell", path: "worker.sh",
         env: { "MASTER_IP" => MASTER_IP, "TOKEN" => TOKEN }
