@@ -15,8 +15,10 @@ This version has been updated to CentOS 8 but creating only one disk of 130GB pe
 
 Current versions (this can change in the future), that are working:\
 \
--Kubernetes 1.21.2\ 
--Kernel 4.18.0-305 with kernel-devel installed\
+-Kubernetes 1.21.2 
+\ 
+-Kernel 4.18.0-305 with kernel-devel installed
+\
 -Portworx 2.7.2
 
 # Create the cluster
