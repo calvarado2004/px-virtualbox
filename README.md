@@ -31,7 +31,7 @@ worker2.example.com   Ready    <none>                 65s     v1.21.2
 
 ```
 
-#Check the Portworx Cluster
+# Check the Portworx Cluster
 
 ```
 $ vagrant ssh master -c "sudo cat /etc/kubernetes/admin.conf" > ${HOME}/.kube/config
@@ -84,6 +84,14 @@ Global Storage Pool
         Total Used      :  25 GiB
         Total Capacity  :  381 GiB
 ```
+
+# Monitoring enabled
+
+![Cluster dashboard](/images/grafana-cluster.png)
+![Node dashboard](/images/grafana-node.png)
+![ETCD dashboard](/images/grafana-etcd.png)
+![Volume dashboard](/images/grafana-volume.png)
+
 # About this project
 
 This is a derivative project from:
