@@ -25,4 +25,8 @@ spec:
       webhook-controller: "false"
   autopilot:
     enabled: true
+  monitoring:
+    prometheus:
+      enabled: true
+      exportMetrics: true
 
