@@ -56,6 +56,10 @@ $ kubectl exec -it pod/${POD} -n kube-system -- /opt/pwx/bin/pxctl status
 
 # Monitoring enabled
 
+Follow this guide to enable Grafana:\
+\
+https://docs.portworx.com/portworx-install-with-kubernetes/operate-and-maintain-on-kubernetes/monitoring/monitoring-px-prometheusandgrafana.1/
+\
 ![Cluster dashboard](/images/grafana-cluster.png)
 ![Node dashboard](/images/grafana-node.png)
 ![ETCD dashboard](/images/grafana-etcd.png)
