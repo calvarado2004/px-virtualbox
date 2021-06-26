@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
     v.cpus = 2
     v.check_guest_additions = false
     v.gui = false
+    v.customize ["modifyvm", :id, "--audio", "none"]
   end
 
   config.vm.provision "shell", path: "common.sh"
