@@ -15,11 +15,11 @@ This version has been updated to CentOS 8 but creating only one disk of 130GB pe
 
 Current versions (this can change in the future), that are working:\
 \
--Kubernetes 1.21.2.
+-Kubernetes 1.21.4.
 \
 -Kernel 4.18.0-305 with kernel-devel installed.
 \
--Portworx 2.7.2.
+-Portworx 2.8.0 with CSI enabled.
 
 # Create the cluster
 
@@ -27,10 +27,10 @@ Current versions (this can change in the future), that are working:\
 $ ./CreateCluster.sh
 $ vagrant ssh master -c "sudo kubectl --kubeconfig=/etc/kubernetes/admin.conf get nodes"
 NAME      STATUS   ROLES                  AGE     VERSION
-master.example.com    Ready    control-plane,master   8m29s   v1.21.2
-worker0.example.com   Ready    <none>                 6m10s   v1.21.2
-worker1.example.com   Ready    <none>                 3m27s   v1.21.2
-worker2.example.com   Ready    <none>                 65s     v1.21.2
+master.example.com    Ready    control-plane,master   8m29s   v1.21.4
+worker0.example.com   Ready    <none>                 6m10s   v1.21.4
+worker1.example.com   Ready    <none>                 3m27s   v1.21.4
+worker2.example.com   Ready    <none>                 65s     v1.21.4
 
 ```
 
@@ -40,10 +40,10 @@ worker2.example.com   Ready    <none>                 65s     v1.21.2
 $ vagrant ssh master -c "sudo cat /etc/kubernetes/admin.conf" > ${HOME}/.kube/config
 $ kubectl get nodes
 NAME                  STATUS   ROLES                  AGE     VERSION
-master.example.com    Ready    control-plane,master   15m     v1.21.2
-worker0.example.com   Ready    <none>                 13m     v1.21.2
-worker1.example.com   Ready    <none>                 11m     v1.21.2
-worker2.example.com   Ready    <none>                 8m58s   v1.21.2
+master.example.com    Ready    control-plane,master   15m     v1.21.4
+worker0.example.com   Ready    <none>                 13m     v1.21.4
+worker1.example.com   Ready    <none>                 11m     v1.21.4
+worker2.example.com   Ready    <none>                 8m58s   v1.21.4
 ```
 Check the PX pods status:
 
