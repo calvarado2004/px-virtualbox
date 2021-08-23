@@ -1,13 +1,13 @@
-# SOURCE: https://install.portworx.com/?operator=true&mc=false&kbver=1.21.0&b=true&s=%2Fdev%2Fsdb%2C%2Fdev%2Fsdc&j=auto&kd=%2Fdev%2Fsdd&c=px-cluster-0276bc75-861a-4c2b-b798-3f4020bbad18&stork=true&st=k8s
+# SOURCE: https://install.portworx.com/?operator=true&mc=false&kbver=1.21.2&b=true&f=true&j=auto&kd=%2Fdev%2Fsdd&m=eth1&d=eth1&c=px-cluster-6e443718-98b3-46fd-8bdd-4afc554a65e3&stork=true&csi=true&mon=true&st=k8s&promop=true
 kind: StorageCluster
 apiVersion: core.libopenstorage.org/v1
 metadata:
-  name: px-cluster-0276bc75-861a-4c2b-b798-3f4020bbad18
+  name: px-cluster-6e443718-98b3-46fd-8bdd-4afc554a65e3
   namespace: kube-system
   annotations:
-    portworx.io/install-source: "https://install.portworx.com/?operator=true&mc=false&kbver=1.21.0&b=true&s=%2Fdev%2Fsdb%2C%2Fdev%2Fsdc&j=auto&kd=%2Fdev%2Fsdd&c=px-cluster-0276bc75-861a-4c2b-b798-3f4020bbad18&stork=true&st=k8s"
+    portworx.io/install-source: "https://install.portworx.com/?operator=true&mc=false&kbver=1.21.2&b=true&f=true&j=auto&kd=%2Fdev%2Fsdd&m=eth1&d=eth1&c=px-cluster-6e443718-98b3-46fd-8bdd-4afc554a65e3&stork=true&csi=true&mon=true&st=k8s&promop=true"
 spec:
-  image: portworx/oci-monitor:2.7.3
+  image: portworx/oci-monitor:2.8.0
   imagePullPolicy: Always
   kvdb:
     internal: true
@@ -18,6 +18,7 @@ spec:
     kvdbDevice: /dev/sdc
   network:
     dataInterface: eth1
+    mgmtInterface: eth1
   secretsProvider: k8s
   stork:
     enabled: true
@@ -25,8 +26,16 @@ spec:
       webhook-controller: "false"
   autopilot:
     enabled: true
+    providers:
+    - name: default
+      type: prometheus
+      params:
+        url: http://prometheus:9090
   monitoring:
+    telemetry:
+      enabled: true
     prometheus:
       enabled: true
       exportMetrics: true
-
+  featureGates:
+    CSI: "true"
