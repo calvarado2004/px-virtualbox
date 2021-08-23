@@ -3,7 +3,7 @@ NUM_WORKERS = 3
 # number of extra disks per worker
 NUM_DISKS = 1
 # size of each disk in gigabytes
-DISK_GBS = 130
+DISK_GBS = 143
 
 ENV["VAGRANT_EXPERIMENTAL"] = "disks"
 
@@ -67,7 +67,7 @@ Vagrant.configure("2") do |config|
       worker.vm.network "private_network", ip: "#{WORKER_IP_BASE}" + i.to_s.rjust(2, '0')
       (1..NUM_DISKS).each do |j|
         worker.vm.disk :disk, size: "#{DISK_GBS}GB", name: "worker#{i}-disk#{j}"
-        worker.vm.disk :disk, size: "15GB", name: "worker#{i}-disk-kvdb"
+        worker.vm.disk :disk, size: "40GB", name: "worker#{i}-disk-kvdb"
       end
 
       worker.vm.provision "shell", path: "worker.sh",
