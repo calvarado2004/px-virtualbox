@@ -2,7 +2,7 @@
 kind: StorageCluster
 apiVersion: core.libopenstorage.org/v1
 metadata:
-  name: px-cluster-6e443718-98b3-46fd-8bdd-4afc554a65e3
+  name: px-virtualbox-cluster
   namespace: kube-system
   annotations:
     portworx.io/install-source: "https://install.portworx.com/?operator=true&mc=false&kbver=1.21.2&b=true&f=true&j=auto&kd=%2Fdev%2Fsdd&m=eth1&d=eth1&c=px-cluster-6e443718-98b3-46fd-8bdd-4afc554a65e3&stork=true&csi=true&mon=true&st=k8s&promop=true"
