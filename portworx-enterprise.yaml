@@ -7,7 +7,7 @@ metadata:
   annotations:
     portworx.io/install-source: "https://install.portworx.com/?operator=true&mc=false&kbver=1.21.2&b=true&f=true&j=auto&kd=%2Fdev%2Fsdd&m=eth1&d=eth1&c=px-cluster-6e443718-98b3-46fd-8bdd-4afc554a65e3&stork=true&csi=true&mon=true&st=k8s&promop=true"
 spec:
-  image: portworx/oci-monitor:2.8.0
+  image: portworx/oci-monitor:2.8.1.1
   imagePullPolicy: Always
   kvdb:
     internal: true
