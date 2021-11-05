@@ -55,7 +55,7 @@ EOF
 
 yum -y update
 yum install -y device-mapper-persistent-data lvm2 \
-    kubeadm-1.21.4 kubelet-1.21.4 kubectl-1.21.4 docker-ce-20.10.7-3.el8.x86_64 nfs-utils kernel-devel cloud-utils-growpart \
+    kubeadm-1.21.5 kubelet-1.21.5 kubectl-1.21.5 docker-ce-20.10.7-3.el8.x86_64 nfs-utils kernel-devel cloud-utils-growpart \
     --disableexcludes=kubernetes,docker-ce-stable
 
 growpart /dev/sda 1
