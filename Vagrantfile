@@ -19,7 +19,8 @@ Vagrant.configure("2") do |config|
     v.memory = 6144
     v.cpus = 2
     v.check_guest_additions = false
-    v.gui = false
+    #v.gui = true for MacOS with VirtualBox 6.1.28
+    v.gui = true
     v.customize ["modifyvm", :id, "--audio", "none"]
   end
 
